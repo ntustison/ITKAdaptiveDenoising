@@ -1,7 +1,7 @@
 ITKAdaptiveDenoising
 =================================
 
-.. image:: https://github.com/InsightSoftwareConsortium/ITKAdaptiveDenoising/workflows/Build,%20test,%20package/badge.svg
+.. image:: https://github.com/ntustison/ITKAdaptiveDenoising/workflows/Build,%20test,%20package/badge.svg
     :alt:    Build Status
 
 .. image:: https://img.shields.io/pypi/v/itk-adaptivedenoising.svg
