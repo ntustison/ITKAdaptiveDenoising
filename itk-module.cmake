@@ -14,7 +14,9 @@ file(READ "${MY_CURRENT_DIR}/README.rst" DOCUMENTATION)
 itk_module(AdaptiveDenoising
   DEPENDS
     ITKCommon
+    ITKSmoothing
     ITKStatistics
+    ITKImageStatistics
   COMPILE_DEPENDS
     ITKImageSources
   TEST_DEPENDS

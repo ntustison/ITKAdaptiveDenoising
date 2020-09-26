@@ -19,8 +19,8 @@ setup(
     packages=['itk'],
     package_dir={'itk': 'itk'},
     download_url=r'https://github.com/InsightSoftwareConsortium/ITKAdaptiveDenoising',
-    description=r'Denoise an image using a spatially adaptive filter originally described in J. V. ',
-    long_description='          Manjon, P. Coupe, Luis Marti-Bonmati, D. L. Collins, and M. Robles. Adaptive ',
+    description=r'Denoise an image using a spatially adaptive filter.',
+    long_description='',
     classifiers=[
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python",
