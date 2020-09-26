@@ -90,11 +90,11 @@ int itkAdaptiveNonLocalMeansDenoisingImageFilterTest( int argc, char * argv[] )
   using DenoiserType = itk::AdaptiveNonLocalMeansDenoisingImageFilter<ImageType, ImageType>;
   DenoiserType::Pointer filter = DenoiserType::New();
 
-  // ITK_EXERCISE_BASIC_OBJECT_METHODS( filter, AdaptiveNonLocalMeansDenoisingImageFilter, ImageToImageFilter );
+  ITK_EXERCISE_BASIC_OBJECT_METHODS( filter, AdaptiveNonLocalMeansDenoisingImageFilter, ImageToImageFilter );
 
   filter->SetInput( reader->GetOutput() );
   filter->SetUseRicianNoiseModel( false );
-  // ITK_TEST_SET_GET_VALUE( false, filter->GetUseRicianNoiseModel() );
+  ITK_TEST_SET_GET_VALUE( false, filter->GetUseRicianNoiseModel() );
  
   DenoiserType::NeighborhoodRadiusType neighborhoodPatchRadius;
   DenoiserType::NeighborhoodRadiusType neighborhoodSearchRadius;
