@@ -26,13 +26,13 @@ namespace itk {
 
 /**
  * \class NonLocalPatchBasedImageFilter
- * \brief Implementation of a non-local upsampling (i.e., superresolution) image filter.
+ * \brief Implementation of a non-local image filter.
  *
  * \ingroup AdaptiveDenoising
  */
 
 template<typename TInputImage, typename TOutputImage = TInputImage>
-class NonLocalPatchBasedImageFilter :
+class ITK_TEMPLATE_EXPORT NonLocalPatchBasedImageFilter :
   public ImageToImageFilter<TInputImage, TOutputImage>
 {
 public:

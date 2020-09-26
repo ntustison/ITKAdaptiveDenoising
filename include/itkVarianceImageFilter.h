@@ -35,7 +35,7 @@ namespace itk
  * \ingroup AdaptiveDenoising
  */
 template< typename TInputImage, typename TOutputImage >
-class VarianceImageFilter final :
+class ITK_TEMPLATE_EXPORT VarianceImageFilter final :
   public BoxImageFilter< TInputImage, TOutputImage >
 {
 public:
