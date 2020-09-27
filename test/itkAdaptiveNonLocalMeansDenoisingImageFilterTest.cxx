@@ -108,7 +108,7 @@ int itkAdaptiveNonLocalMeansDenoisingImageFilterTest( int argc, char * argv[] )
   using DenoiserType = itk::AdaptiveNonLocalMeansDenoisingImageFilter<ImageType, ImageType>;
   DenoiserType::Pointer filter = DenoiserType::New();
 
-  ITK_EXERCISE_BASIC_OBJECT_METHODS( filter, AdaptiveNonLocalMeansDenoisingImageFilter, ImageToImageFilter );
+  // ITK_EXERCISE_BASIC_OBJECT_METHODS( filter, AdaptiveNonLocalMeansDenoisingImageFilter, ImageToImageFilter );
 
   filter->SetInput( reader->GetOutput() );
   filter->SetUseRicianNoiseModel( false );
@@ -147,7 +147,7 @@ int itkAdaptiveNonLocalMeansDenoisingImageFilterTest( int argc, char * argv[] )
   CommandType::Pointer observer = CommandType::New();
   filter->AddObserver( itk::ProgressEvent(), observer );
 
-  ITK_TRY_EXPECT_NO_EXCEPTION(filter->Update());
+  ITK_TRY_EXPECT_NO_EXCEPTION( filter->Update() );
 
   using WriterType = itk::ImageFileWriter<ImageType>;
   WriterType::Pointer writer = WriterType::New();
