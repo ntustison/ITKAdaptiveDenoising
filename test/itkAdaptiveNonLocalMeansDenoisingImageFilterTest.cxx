@@ -40,7 +40,7 @@ protected:
 
 public:
 
-  void Execute(itk::Object *caller, const itk::EventObject & event) override
+  void Execute( itk::Object *caller, const itk::EventObject & event ) override
     {
     auto *po = dynamic_cast<itk::ProcessObject *>( caller );
     if (! po) return;
@@ -87,15 +87,15 @@ public:
 
 int itkAdaptiveNonLocalMeansDenoisingImageFilterTest( int argc, char * argv[] )
 {
-  if (argc < 2)
-  {
+  if (argc < 3)
+    {
     std::cerr << "Missing parameters." << std::endl;
     std::cerr << "Usage: " << argv[0];
     std::cerr << "  inputImage";
     std::cerr << "  outputImage";
     std::cerr << std::endl;
     return EXIT_FAILURE;
-  }
+    }
 
   constexpr unsigned int Dimension = 2;
   using PixelType = float;

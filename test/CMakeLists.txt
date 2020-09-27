@@ -6,15 +6,10 @@ set(AdaptiveDenoisingTests
 
 CreateTestDriver(AdaptiveDenoising "${AdaptiveDenoising-Test_LIBRARIES}" "${AdaptiveDenoisingTests}")
 
-itk_add_test(NAME itkAdaptiveNonLocalMeansDenoisingImageFilterTest1 
- COMMAND AdaptiveDenoisingTestDriver itkAdaptiveNonLocalMeansDenoisingImageFilterTest
- )
-
-# itk_add_test(NAME itkAdaptiveNonLocalMeansDenoisingImageFilterTest
-#  COMMAND AdaptiveDenoisingTestDriver
-#    --compare
-#    DATA{Baseline/itkAdaptiveNonLocalMeansDenoisingImageFilterTestOutput.mha}
-#    ${ITK_TEST_OUTPUT_DIR}/itkAdaptiveNonLocalMeansDenoisingImageFilterTestOutput.mha
-#  itkAdaptiveNonLocalMeansDenoisingImageFilterTest
-#    ${ITK_TEST_OUTPUT_DIR}/itkAdaptiveNonLocalMeansDenoisingImageFilterTestOutput.mha
-# )
+itk_add_test(NAME AdaptiveNonLocalMeansDenoisingImageFilterTest1
+ COMMAND AdaptiveDenoisingTestDriver 
+   --compare DATA{Baseline/r16denoised.nrrd}
+             ${ITK_TEST_OUTPUT_DIR}/r16denoised.nrrd
+ itkAdaptiveNonLocalMeansDenoisingImageFilterTest
+    DATA{Input/r16slice.nrrd} ${ITK_TEST_OUTPUT_DIR}/r16denoised.nrrd
+)
