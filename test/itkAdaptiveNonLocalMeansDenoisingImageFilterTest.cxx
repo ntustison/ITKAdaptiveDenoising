@@ -1,4 +1,3 @@
-
 /*=========================================================================
  *
  *  Copyright NumFOCUS
@@ -159,4 +158,3 @@ int itkAdaptiveNonLocalMeansDenoisingImageFilterTest( int argc, char * argv[] )
 
   return EXIT_SUCCESS;
 }
-
