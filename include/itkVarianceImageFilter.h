@@ -39,6 +39,8 @@ class ITK_TEMPLATE_EXPORT VarianceImageFilter final :
   public BoxImageFilter< TInputImage, TOutputImage >
 {
 public:
+  ITK_DISALLOW_COPY_AND_ASSIGN(VarianceImageFilter);
+
   /** Extract dimension from input and output image. */
   itkStaticConstMacro(InputImageDimension, unsigned int,
                       TInputImage::ImageDimension);
@@ -94,10 +96,6 @@ protected:
    *     BoxImageFilter::GenerateData() */
   void ThreadedGenerateData(const OutputImageRegionType & outputRegionForThread,
                             ThreadIdType threadId) override;
-
-private:
-  VarianceImageFilter(const Self &) = delete;
-  void operator=(const Self &) = delete;
 };
 } // end namespace itk
 
