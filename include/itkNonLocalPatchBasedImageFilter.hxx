@@ -28,7 +28,7 @@ template <typename TInputImage, typename TOutputImage>
 NonLocalPatchBasedImageFilter<TInputImage, TOutputImage>
 ::NonLocalPatchBasedImageFilter()
 {
-  this->m_SimilarityMetric = MEAN_SQUARES;
+  this->m_SimilarityMetric = SimilarityMetricEnum::MEAN_SQUARES;
 
   this->m_NeighborhoodPatchRadius.Fill( 1 );
   this->m_NeighborhoodPatchOffsetList.clear();
@@ -201,7 +201,7 @@ NonLocalPatchBasedImageFilter<TInputImage, TOutputImage>
     return NumericTraits<RealType>::max();
     }
 
-  if( this->m_SimilarityMetric == PEARSON_CORRELATION )
+  if( this->m_SimilarityMetric == SimilarityMetricEnum::PEARSON_CORRELATION )
     {
     RealType varianceX = sumOfSquaresX - itk::Math::sqr ( sumX ) / N;
     varianceX = std::max( varianceX, static_cast<RealType>( 1.0e-6 ) );
@@ -216,7 +216,7 @@ NonLocalPatchBasedImageFilter<TInputImage, TOutputImage>
       return measure;
       }
     }
-  else if( this->m_SimilarityMetric == MEAN_SQUARES )
+  else if( this->m_SimilarityMetric == SimilarityMetricEnum::MEAN_SQUARES )
     {
     return ( sumOfSquaredDifferencesXY / N );
     }
@@ -233,11 +233,11 @@ NonLocalPatchBasedImageFilter<TInputImage, TOutputImage>
 {
   Superclass::PrintSelf( os, indent );
 
-  if( this->m_SimilarityMetric == PEARSON_CORRELATION )
+  if( this->m_SimilarityMetric == SimilarityMetricEnum::PEARSON_CORRELATION )
     {
     os << "Using Pearson correlation to measure the patch similarity." << std::endl;
     }
-  else if( this->m_SimilarityMetric == MEAN_SQUARES )
+  else if( this->m_SimilarityMetric == SimilarityMetricEnum::MEAN_SQUARES )
     {
     os << "Using mean squares to measure the patch similarity." << std::endl;
     }

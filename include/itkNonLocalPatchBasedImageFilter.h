@@ -18,11 +18,37 @@
 #ifndef itkNonLocalPatchBasedImageFilter_h
 #define itkNonLocalPatchBasedImageFilter_h
 
+#include <iostream>
 #include "itkImageToImageFilter.h"
+#include "AdaptiveDenoisingExport.h"
 
 #include "itkConstNeighborhoodIterator.h"
 
 namespace itk {
+
+/**
+ * \class NonLocalPatchBasedImageFilterEnums
+ * \brief Non-local patch-based image filter enum classes.
+ * \ingroup AdaptiveDenoising
+ */
+
+class NonLocalPatchBasedImageFilterEnums
+{
+public:
+  /**\class SimilarityMetric
+   * \brief Neighborhood patch similarity metric enumerated type.
+   * \ingroup AdaptiveDenoising
+   */
+  enum class SimilarityMetric: uint8_t
+  {
+    PEARSON_CORRELATION = 0,
+    MEAN_SQUARES = 1
+  };
+};
+
+extern AdaptiveDenoising_EXPORT std::ostream &
+operator<<(std::ostream & out, const NonLocalPatchBasedImageFilterEnums::SimilarityMetric value);
+
 
 /**
  * \class NonLocalPatchBasedImageFilter
@@ -80,13 +106,13 @@ public:
   using NeighborhoodOffsetType = typename ConstNeighborhoodIteratorType::OffsetType;
 
   using NeighborhoodOffsetListType = std::vector<NeighborhoodOffsetType>;
-  /**
-   * Neighborhood patch similarity metric enumerated type
-   */
-  enum SimilarityMetricType {
-    PEARSON_CORRELATION,
-    MEAN_SQUARES
-  };
+
+  using SimilarityMetricEnum = NonLocalPatchBasedImageFilterEnums::SimilarityMetric;
+#if !defined(ITK_LEGACY_REMOVE)
+  using SimilarityMetricType = SimilarityMetricEnum;
+  static constexpr SimilarityMetricType PEARSON_CORRELATION = SimilarityMetricEnum::PEARSON_CORRELATION;
+  static constexpr SimilarityMetricType MEAN_SQUARES = SimilarityMetricEnum::MEAN_SQUARES;
+#endif
 
   /**
    * Get/set neighborhood search radius.
@@ -137,8 +163,8 @@ public:
   /**
    * Enumerated type for neighborhood similarity.  Default = MEAN_SQUARES
    */
-  itkSetMacro( SimilarityMetric, SimilarityMetricType );
-  itkGetConstMacro( SimilarityMetric, SimilarityMetricType );
+  itkSetMacro( SimilarityMetric, SimilarityMetricEnum );
+  itkGetConstMacro( SimilarityMetric, SimilarityMetricEnum );
 
 protected:
 
@@ -160,7 +186,7 @@ protected:
   itkSetMacro( TargetImageRegion, RegionType );
   itkGetConstMacro( TargetImageRegion, RegionType );
 
-  SimilarityMetricType                                 m_SimilarityMetric;
+  SimilarityMetricEnum                                 m_SimilarityMetric;
 
   SizeValueType                                        m_NeighborhoodSearchSize;
   NeighborhoodRadiusType                               m_NeighborhoodSearchRadius;
