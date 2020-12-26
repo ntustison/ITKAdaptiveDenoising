@@ -50,7 +50,7 @@ class ITK_TEMPLATE_EXPORT AdaptiveNonLocalMeansDenoisingImageFilter final :
   public NonLocalPatchBasedImageFilter<TInputImage, TOutputImage>
 {
 public:
-  ITK_DISALLOW_COPY_AND_ASSIGN(AdaptiveNonLocalMeansDenoisingImageFilter);
+  ITK_DISALLOW_COPY_AND_MOVE(AdaptiveNonLocalMeansDenoisingImageFilter);
 
   /** Standard class typedefs. */
   typedef AdaptiveNonLocalMeansDenoisingImageFilter                 Self;
