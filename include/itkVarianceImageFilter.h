@@ -39,7 +39,7 @@ class ITK_TEMPLATE_EXPORT VarianceImageFilter final :
   public BoxImageFilter< TInputImage, TOutputImage >
 {
 public:
-  ITK_DISALLOW_COPY_AND_ASSIGN(VarianceImageFilter);
+  ITK_DISALLOW_COPY_AND_MOVE(VarianceImageFilter);
 
   /** Extract dimension from input and output image. */
   itkStaticConstMacro(InputImageDimension, unsigned int,
