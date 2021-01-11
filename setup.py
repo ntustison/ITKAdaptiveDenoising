@@ -13,7 +13,7 @@ except ImportError:
 
 setup(
     name='itk-adaptivedenoising',
-    version='0.1.0',
+    version='0.2.0',
     author='Nick Tustison',
     author_email='ntustison@gmail.com',
     packages=['itk'],
