@@ -27,76 +27,74 @@
 
 namespace itk
 {
-template< typename TInputImage, typename TOutputImage >
-VarianceImageFilter< TInputImage, TOutputImage >
-::VarianceImageFilter()
+template <typename TInputImage, typename TOutputImage>
+VarianceImageFilter<TInputImage, TOutputImage>::VarianceImageFilter()
 {
-  this->DynamicMultiThreadingOff();  
+  this->DynamicMultiThreadingOff();
 }
 
-template< typename TInputImage, typename TOutputImage >
+template <typename TInputImage, typename TOutputImage>
 void
-VarianceImageFilter< TInputImage, TOutputImage >
-::ThreadedGenerateData(const OutputImageRegionType & outputRegionForThread,
-                       ThreadIdType threadId)
+VarianceImageFilter<TInputImage, TOutputImage>::ThreadedGenerateData(
+  const OutputImageRegionType & outputRegionForThread,
+  ThreadIdType                  threadId)
 {
   unsigned int i;
 
-  ZeroFluxNeumannBoundaryCondition< InputImageType > nbc;
+  ZeroFluxNeumannBoundaryCondition<InputImageType> nbc;
 
-  ConstNeighborhoodIterator< InputImageType > bit;
-  ImageRegionIterator< OutputImageType >      it;
+  ConstNeighborhoodIterator<InputImageType> bit;
+  ImageRegionIterator<OutputImageType>      it;
 
   // Allocate output
-  typename OutputImageType::Pointer output = this->GetOutput();
-  typename  InputImageType::ConstPointer input  = this->GetInput();
+  typename OutputImageType::Pointer     output = this->GetOutput();
+  typename InputImageType::ConstPointer input = this->GetInput();
 
   // Find the data-set boundary "faces"
-  typename NeighborhoodAlgorithm::ImageBoundaryFacesCalculator< InputImageType >::FaceListType faceList;
-  NeighborhoodAlgorithm::ImageBoundaryFacesCalculator< InputImageType > bC;
-  faceList = bC( input, outputRegionForThread, this->GetRadius() );
+  typename NeighborhoodAlgorithm::ImageBoundaryFacesCalculator<InputImageType>::FaceListType faceList;
+  NeighborhoodAlgorithm::ImageBoundaryFacesCalculator<InputImageType>                        bC;
+  faceList = bC(input, outputRegionForThread, this->GetRadius());
 
-  typename NeighborhoodAlgorithm::ImageBoundaryFacesCalculator< InputImageType >::FaceListType::iterator fit;
+  typename NeighborhoodAlgorithm::ImageBoundaryFacesCalculator<InputImageType>::FaceListType::iterator fit;
 
   // support progress methods/callbacks
-  ProgressReporter progress( this, threadId, outputRegionForThread.GetNumberOfPixels() );
+  ProgressReporter progress(this, threadId, outputRegionForThread.GetNumberOfPixels());
 
   InputRealType sum;
   InputRealType sumOfSquares;
 
   // Process each of the boundary faces.  These are N-d regions which border
   // the edge of the buffer.
-  for ( fit = faceList.begin(); fit != faceList.end(); ++fit )
-    {
-    bit = ConstNeighborhoodIterator< InputImageType >(this->GetRadius(),
-                                                      input, *fit);
+  for (fit = faceList.begin(); fit != faceList.end(); ++fit)
+  {
+    bit = ConstNeighborhoodIterator<InputImageType>(this->GetRadius(), input, *fit);
     unsigned int neighborhoodSize = bit.Size();
-    it = ImageRegionIterator< OutputImageType >(output, *fit);
+    it = ImageRegionIterator<OutputImageType>(output, *fit);
     bit.OverrideBoundaryCondition(&nbc);
     bit.GoToBegin();
 
-    while ( !bit.IsAtEnd() )
-      {
-      sum = NumericTraits< InputRealType >::ZeroValue();
-      sumOfSquares = NumericTraits< InputRealType >::ZeroValue();
+    while (!bit.IsAtEnd())
+    {
+      sum = NumericTraits<InputRealType>::ZeroValue();
+      sumOfSquares = NumericTraits<InputRealType>::ZeroValue();
 
-      for ( i = 0; i < neighborhoodSize; ++i )
-        {
-        sum += static_cast< InputRealType >( bit.GetPixel(i) );
-        sumOfSquares += itk::Math::sqr ( static_cast< InputRealType >( bit.GetPixel(i) ) );
-        }
+      for (i = 0; i < neighborhoodSize; ++i)
+      {
+        sum += static_cast<InputRealType>(bit.GetPixel(i));
+        sumOfSquares += itk::Math::sqr(static_cast<InputRealType>(bit.GetPixel(i)));
+      }
 
       // get the variance value
-      const double num = static_cast< double >( neighborhoodSize );
-      OutputPixelType var = ( sumOfSquares - ( itk::Math::sqr ( sum ) / num ) ) / ( num - 1.0 );
+      const double    num = static_cast<double>(neighborhoodSize);
+      OutputPixelType var = (sumOfSquares - (itk::Math::sqr(sum) / num)) / (num - 1.0);
 
-      it.Set( var );
+      it.Set(var);
 
       ++bit;
       ++it;
       progress.CompletedPixel();
-      }
     }
+  }
 }
 } // end namespace itk
 
