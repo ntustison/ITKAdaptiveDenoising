@@ -48,7 +48,7 @@ public:
 };
 
 extern AdaptiveDenoising_EXPORT std::ostream &
-                                operator<<(std::ostream & out, const NonLocalPatchBasedImageFilterEnums::SimilarityMetric value);
+operator<<(std::ostream & out, const NonLocalPatchBasedImageFilterEnums::SimilarityMetric value);
 
 
 /**
